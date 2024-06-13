@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('git checkout') {
             steps {
-                \*sh "git branch 'main', credentialsId 'git-cred', url 'https://github.com/hemu07/spy-app.git'" 
+                echo "git checkout in progress.."
             }
         }
 
