@@ -35,7 +35,7 @@ pipeline {
             }
         }
 
-        stage('sonaqube analysis') {
+        stage('sonarqube analysis') {
             steps {
                 withSonarQubeEnv('sonar') {
                     sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectKey=spyApp -Dsonar.projectName=spyApp -Dsonar.java.binaries=. '''
@@ -53,6 +53,14 @@ pipeline {
             steps {
                 echo "building image"
                /* sh 'trivy fs --format table -o trivy-fs-report.html .'*/
+            }
+        }
+
+        stage('deploy to nexus') {
+            steps {
+                withMaven(globalMavenSettingsConfig: 'maven', jdk: 'jdk17', maven: 'maven3', mavenSettingsConfig: '', traceability: true) {
+                    sh 'mvn deploy -DskipTests=true'
+                }
             }
         }
     }
