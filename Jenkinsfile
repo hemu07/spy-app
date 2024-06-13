@@ -23,7 +23,7 @@ pipeline {
             }
         }
 
-        stage('test') {
+        stage('test app') {
             steps {
                 sh 'mvn test -DskipTests=true'
             }
@@ -43,7 +43,7 @@ pipeline {
             }
         }
 
-        stage('test') {
+        stage('build app') {
             steps {
                 sh 'mvn package -DskipTests=true'
             }
@@ -51,6 +51,7 @@ pipeline {
 
         stage('build image') {
             steps {
+                echo "building image"
                /* sh 'trivy fs --format table -o trivy-fs-report.html .'*/
             }
         }
