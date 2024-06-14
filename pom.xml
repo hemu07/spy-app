@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>ca.mihye_bang</groupId>
 	<artifactId>Assignment3_MihyeBang</artifactId>
-	<version>0.0.1-RELEASE</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<name>Assignment3_MihyeBang</name>
 	<description>Assignment 3</description>
 	<properties>
@@ -59,9 +59,13 @@
 
 	<distributionManagement>
         <repository>
+            <id>maven-releases</id>
+            <url>http://18.209.152.158:8081/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
             <id>maven-snapshots</id>
             <url>http://18.209.152.158:8081/repository/maven-snapshots/</url>
-       
+        </snapshotRepository>
     </distributionManagement>
 
 	<build>
