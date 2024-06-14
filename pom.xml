@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>ca.mihye_bang</groupId>
 	<artifactId>Assignment3_MihyeBang</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1.SNAPSHOT</version>
 	<name>Assignment3_MihyeBang</name>
 	<description>Assignment 3</description>
 	<properties>
