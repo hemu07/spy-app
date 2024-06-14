@@ -94,7 +94,7 @@ pipeline {
             }
         }
 
-        stage('deploy to k8s') {
+        stage('verify the deployment to k8s') {
             steps {
                 script {
                     withKubeConfig(caCertificate: '', clusterName: 'spy-app', contextName: '', credentialsId: 'k8-token', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://16998441D9054663C943442635C1B9A1.gr7.us-east-1.eks.amazonaws.com') {
