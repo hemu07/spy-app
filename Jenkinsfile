@@ -69,7 +69,7 @@ pipeline {
 
         stage('Trivy scan image') {
             steps {
-                sh 'trivy image --format table -o trivy-image-report.html hemu07/Mission:latest'
+                sh 'trivy image --format table -o trivy-image-report.html hemu07/mission:latest'
             }
         }
 
