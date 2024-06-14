@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mission-app-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mission
+  template:
+    metadata:
+      labels:
+        app: mission
+    spec:
+      containers:
+      - name: hemu07/mission:latest
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mission-svc
+spec:
+  selector:
+    app: mission
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer 

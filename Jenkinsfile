@@ -83,11 +83,23 @@ pipeline {
             }
         }
 
-        stage('deploy to container') {
+        stage('deploy to k8s') {
             steps {
                 script {
-                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                        sh "docker run -d -p 8083:8080 hemu07/mission:latest"
+                    withKubeConfig(caCertificate: '', clusterName: 'spy-app', contextName: '', credentialsId: 'k8-token', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://16998441D9054663C943442635C1B9A1.gr7.us-east-1.eks.amazonaws.com') {
+                        sh "kubectl apply -f deployment.yaml -n webapps"
+                        sleep 60
+                    }
+                }
+            }
+        }
+
+        stage('deploy to k8s') {
+            steps {
+                script {
+                    withKubeConfig(caCertificate: '', clusterName: 'spy-app', contextName: '', credentialsId: 'k8-token', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://16998441D9054663C943442635C1B9A1.gr7.us-east-1.eks.amazonaws.com') {
+                        sh "kubectl get pods -n webapps"
+                        sh "kubectl get svc -n webapps"
                     }
                 }
             }
