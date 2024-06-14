@@ -77,7 +77,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                        sh "docker push -t hemu07/Mission:latest"
+                        sh "docker push -t hemu07/mission:latest"
                     }
                 }
             }
