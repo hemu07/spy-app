@@ -29,7 +29,7 @@ pipeline {
             }
         }
 
-        stage('Trivy scan') {
+        stage('Trivy scan file system') {
             steps {
                 sh 'trivy fs --format table -o trivy-fs-report.html .'
             }
@@ -52,15 +52,44 @@ pipeline {
         stage('deploy to nexus') {
             steps {
                 withMaven(globalMavenSettingsConfig: 'maven', jdk: 'jdk17', maven: 'maven3', mavenSettingsConfig: '', traceability: true) {
-                    sh 'mvn package -DskipTests=true && mvn clean deploy -DskipTests=true'
+                    sh 'mvn clean deploy -DskipTests=true'
                 }
             }
         }
 
-        stage('build image') {
+        stage('build & tag docker image') {
             steps {
-                echo "building image"
-             
+                script {
+                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
+                        sh "docker build -t hemu07/Mission:latest ."
+                    }
+                }
+            }
+        }
+
+        stage('Trivy scan image') {
+            steps {
+                sh 'trivy image --format table -o trivy-image-report.html hemu07/Mission:latest'
+            }
+        }
+
+        stage('publish docker image') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
+                        sh "docker push -t hemu07/Mission:latest"
+                    }
+                }
+            }
+        }
+
+        stage('deploy to container') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
+                        sh "docker run -d -p 8080:8080 hemu07/Mission:latest"
+                    }
+                }
             }
         }
     }
