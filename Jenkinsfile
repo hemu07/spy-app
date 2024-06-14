@@ -87,7 +87,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                        sh "docker run -d -p 8080:8080 hemu07/mission:latest"
+                        sh "docker run -d -p 8083:8080 hemu07/mission:latest"
                     }
                 }
             }
