@@ -13,8 +13,8 @@ spec:
         app: mission
     spec:
       containers:
-      - name: hemu07/mission:latest
-        image: nginx:1.14.2
+      - name: mission
+        image: hemu07/mission:latest
         ports:
         - containerPort: 8080
 ---
