@@ -60,7 +60,7 @@ pipeline {
         stage('build image') {
             steps {
                 echo "building image"
-               /* sh 'trivy fs --format table -o trivy-fs-report.html .'*/
+             
             }
         }
     }
